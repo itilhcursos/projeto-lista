@@ -9,15 +9,6 @@
         </div>
         <button type="submit" v-on:click.prevent="incluirProduto" class="btn btn-primary">Incluir</button>
         <hr/>
-        <div class="list-group">
-            <div class="list-group-item" v-for="(item, index) in lista" v-bind:key="index">
-                <span><strong>{{item.produto}}</strong></span>
-                <p>{{item.quantidade}}</p>
-                <div>
-                    <a href="#" @click.prevent="excluirProduto(index)">Excluir</a>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -27,7 +18,6 @@
             return {
                 produto:'',
                 quantidade:'',
-                lista: [],
                 isInvalido:false,
             }
         },
@@ -40,18 +30,15 @@
                 }
                 this.isInvalido = false;
 
-                this.lista.push({
-                        produto:this.produto,
-                        quantidade:this.quantidade
-                    });
+                 this.$emit('novo-produto',{
+                         produto:this.produto,
+                         quantidade:this.quantidade
+                     });
+
                 this.produto = '';
                 this.quantidade ='';
             
             },
-            excluirProduto(posicao){
-                console.log(posicao);
-                this.lista.splice(posicao,1);
-            }
         }
    }
 </script>
